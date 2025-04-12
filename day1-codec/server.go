@@ -143,7 +143,7 @@ func (server *Server) serveCodec(cc codec.Codec, opt *Option) {
 		go server.handleRequest(cc, req, sending, wg, opt.HandleTimeout)
 	}
 	wg.Wait()
-	_ = cc.Close()
+	// _ = cc.Close()
 }
 
 // request stores all information of a call
