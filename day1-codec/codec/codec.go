@@ -7,25 +7,28 @@ type Header struct {
 	Seq           uint64
 	Error         string
 }
+
 // 进行编解码
 type Codec interface {
 	io.Closer
 	ReadHeader(*Header) error
-	ReadBody(interface{})error
+	ReadBody(interface{}) error
 	Write(*Header, interface{}) error
 }
 
-type NewCodecFunc func(io.ReadWriteCloser) Codec 
+type NewCodecFunc func(io.ReadWriteCloser) Codec
 
 type Type string
 
 const (
-	GobType Type = "application/gob"
+	GobType  Type = "application/gob"
 	JsonType Type = "application/json"
 )
+
 var NewCodecFuncMap map[Type]NewCodecFunc
 
 func init() {
 	NewCodecFuncMap = make(map[Type]NewCodecFunc)
 	NewCodecFuncMap[GobType] = NewGobCodec
+	NewCodecFuncMap[JsonType] = NewJsonCodec
 }

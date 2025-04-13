@@ -14,7 +14,7 @@ type GobCodec struct {
 	enc  *gob.Encoder
 }
 
-var _ Codec = (*GobCodec)(nil)
+var _ Codec = (*GobCodec)(nil) //确保GobCodec类型确确实实实现了Codec接口，编译器进行检查，如果没有实现，编译器会报错
 
 func NewGobCodec(conn io.ReadWriteCloser) Codec {
 	buf := bufio.NewWriter(conn)
